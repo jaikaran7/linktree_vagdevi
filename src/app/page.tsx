@@ -1,65 +1,119 @@
-import Image from "next/image";
+'use client';
+
+import React from 'react';
+import ProfileHeader from '@/components/ProfileHeader';
+import LinkButton from '@/components/LinkButton';
+import { trackEvent } from '@/components/Tracking';
+import {
+  MessageCircle,
+  Phone,
+  Globe,
+  MapPin,
+  Star,
+  Instagram,
+  Youtube,
+  Ticket
+} from 'lucide-react';
 
 export default function Home() {
+  const handleContactClick = (type: string) => {
+    trackEvent('Contact', { type });
+  };
+
+  const handleViewContent = (content_name: string) => {
+    trackEvent('ViewContent', { content_name });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div style={{
+      maxWidth: '420px',
+      margin: '0 auto',
+      padding: '0 20px 40px 20px',
+      minHeight: '100vh'
+    }}>
+      <ProfileHeader />
+
+      <div style={{ width: '100%' }}>
+        <LinkButton
+          icon={MessageCircle}
+          label="WhatsApp"
+          subtext="Book a Free Demo"
+          href="https://wa.me/919522393223?text=Hi,%20I'm%20interested%20in%20Bharatanatyam%20classes."
+          onClick={() => handleContactClick('WhatsApp')}
+          isPrimary={true}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        <LinkButton
+          icon={Phone}
+          label="Call Now"
+          subtext="+91 95223 93223 | +91 77803 29415"
+          href="tel:+919522393223"
+          onClick={() => handleContactClick('Phone')}
+        />
+
+        <LinkButton
+          icon={Globe}
+          label="Official Website"
+          subtext="vagdevinrityakshetra.com"
+          href="https://vagdevinrityakshetra.com"
+          onClick={() => handleViewContent('Website')}
+        />
+
+        <LinkButton
+          icon={MapPin}
+          label="Google Maps"
+          subtext="Get Directions"
+          href="https://www.google.com/maps/search/?api=1&query=Vagdevi+Nrityakshetra+OU+Colony+Shaikpet"
+          onClick={() => handleContactClick('MapDirections')}
+        />
+
+        <LinkButton
+          icon={Star}
+          label="Google Reviews"
+          subtext="Read our 5-star reviews"
+          href="https://www.google.com/search?q=Vagdevi+Nrityakshetra+reviews"
+          onClick={() => handleViewContent('Reviews')}
+        />
+
+        <LinkButton
+          icon={Instagram}
+          label="Instagram"
+          subtext="@vagdevi_nrityakshetra"
+          href="https://instagram.com/vagdevi_nrityakshetra"
+          onClick={() => handleViewContent('Instagram')}
+        />
+
+        <LinkButton
+          icon={Youtube}
+          label="YouTube"
+          subtext="Watch our performances"
+          href="https://www.youtube.com/results?search_query=Vagdevi+Nrityakshetra"
+          onClick={() => handleViewContent('YouTube')}
+        />
+
+        <LinkButton
+          icon={Ticket}
+          label="Events & Performances"
+          subtext="Upcoming shows"
+          href="https://vagdevinrityakshetra.com/events"
+          onClick={() => handleViewContent('Events')}
+        />
+      </div>
+
+      <div style={{
+        textAlign: 'center',
+        marginTop: '40px',
+        fontSize: '11px',
+        color: '#9CA3AF',
+        fontWeight: '500'
+      }}>
+        <p style={{ margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '1px' }}>
+          Vagdevi Nrityakshetra
+        </p>
+        <p style={{ margin: 0 }}>
+          © {new Date().getFullYear()} All rights reserved
+        </p>
+      </div>
     </div>
   );
 }
